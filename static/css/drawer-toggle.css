@@ -1,0 +1,29 @@
+/* Chevron – zawsze display:flex, niezależnie od stanu drawera */
+.drawer-toggle-btn {
+  position: fixed;
+  top:    var(--navbar-height);
+  left:   var(--sidebar-width);
+  background: none;
+  border:     none;
+  cursor:     pointer;
+  z-index:    2000;
+  display:    flex;          /* <— zawsze widoczny */
+  align-items: center;
+  padding:    0;
+  margin:     0;
+}
+
+/* Przesunięcie toggle gdy panel otwarty */
+body.drawer-open .drawer-toggle-btn {
+  left: calc(var(--sidebar-width) + var(--drawer-width));
+}
+
+body.drawer-open #main-content {
+  margin-left: calc(var(--sidebar-width) + var(--drawer-width));
+}
+
+/* Ikonki chevron */
+.drawer-toggle-btn .show-icon { display: inline; }
+.drawer-toggle-btn .hide-icon { display: none; }
+body.drawer-open .drawer-toggle-btn .show-icon { display: none; }
+body.drawer-open .drawer-toggle-btn .hide-icon { display: inline; }

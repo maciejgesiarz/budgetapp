@@ -1,0 +1,37 @@
+/* ============================================================================
+   icons.css — Ustawienia Google Material Symbols
+   ============================================================================ */
+
+/* Import w HTML:
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+*/
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' var(--fw-normal), 'GRAD' 0, 'opsz' 48;
+  font-size: var(--font-lg);
+  transition: color 0.3s;
+}
+
+/* Navbar piggy bank (fill) */
+.navbar-icon.filled-icon {
+  font-variation-settings: 'FILL' 1, 'wght' var(--fw-normal), 'GRAD' 0, 'opsz' 48;
+  font-size: calc(var(--spacing-unit) * 5);
+  color: var(--main-color);
+}
+
+/* Sidebar icons */
+.sidebar-icon {
+  font-variation-settings: 'FILL' 0, 'wght' var(--fw-light), 'GRAD' 0, 'opsz' 48;
+  font-size: var(--font-xxl);
+  margin-bottom: calc(var(--spacing-unit) * 0.75);
+}
+
+/* General icons in buttons/forms */
+.general-icon,
+.general-icon-filled {
+  font-size: var(--font-lg);
+}
+.general-icon-filled {
+  font-variation-settings: 'FILL' 1, 'wght' var(--fw-normal), 'GRAD' 0, 'opsz' 48;
+}

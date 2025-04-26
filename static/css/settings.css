@@ -1,0 +1,45 @@
+/* ============================================================================
+   settings.css — Styl wysuwanego menu Ustawień
+   ============================================================================ */
+
+   .settings-drawer ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .settings-drawer {
+    position: fixed;
+    top: var(--navbar-height);
+    bottom: var(--footer-height);
+    left: var(--sidebar-width);
+    width: var(--drawer-width);
+    background-color: var(--drawer-bg);
+    transform: translateX(-100%);
+    z-index: 10;
+    padding: 0;
+  }
+  
+  .settings-drawer.has-transition {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .settings-drawer.open {
+    transform: translateX(0);
+  }
+  
+  .settings-item {
+    display: block;
+    padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 2);
+    color: var(--drawer-text);
+    text-decoration: none;
+    font-family: var(--font-primary);
+    font-size: var(--font-sm);
+    font-weight: var(--fw-medium);
+    transition: color 0.2s ease;
+  }
+  
+  .settings-item:hover,
+  .settings-item.active {
+    color: var(--drawer-hover-text) !important;
+  }
+  

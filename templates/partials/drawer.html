@@ -1,0 +1,16 @@
+<aside id="drawer-settings" class="drawer">
+  <ul class="settings-list">
+    <li>
+      <a href="{{ url_for('settings_appearance') }}"
+         class="settings-item {% if request.endpoint=='settings_appearance' %}active{% endif %}">
+        Główne
+      </a>
+    </li>
+    <li>
+      <a href="{{ url_for('settings_categories') }}"
+         class="settings-item {% if request.endpoint=='settings_categories' %}active{% endif %}">
+        Kategorie
+      </a>
+    </li>
+  </ul>
+</aside>

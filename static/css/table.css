@@ -1,0 +1,25 @@
+/* ============================================================================
+   table.css — Styl minimalistycznych tabel
+   ============================================================================ */
+
+   .table-minimal {
+    width:           100%;
+    border-collapse: collapse;
+    font-size:       var(--font-sm);
+  }
+  
+  .table-minimal th,
+  .table-minimal td {
+    padding:         calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 1);
+    border-bottom:   1px solid var(--table-border-color, #ddd);
+  }
+  
+  .table-minimal thead {
+    background-color: var(--table-header-bg, #e9ecef);
+    color:            var(--sidebar-text);
+  }
+  
+  .table-minimal tbody tr:hover {
+    background-color: var(--table-row-hover-bg, #f1f1f1);
+  }
+  

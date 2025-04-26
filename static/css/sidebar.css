@@ -1,0 +1,53 @@
+/* ============================================================================
+   sidebar.css — Styl bocznego menu
+   ============================================================================ */
+
+   .sidebar {
+    position: fixed;
+    top: var(--navbar-height);
+    bottom: var(--footer-height);
+    left: 0;
+    width: var(--sidebar-width);
+    background-color: var(--sidebar-bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 20;
+  }
+  
+  .sidebar-bottom {
+    margin-top: auto;
+  }
+  
+  .sidebar .nav-link {
+    text-align: center;
+    padding: calc(var(--spacing-unit) * 2) 0;
+    color: var(--sidebar-text);
+    text-decoration: none;
+    font-family: var(--font-primary);
+    font-size: var(--font-xs);
+    font-weight: var(--fw-medium);
+    transition: color 0.2s ease;
+  }
+  
+  .sidebar-icon {
+    /* z icons.css */
+  }
+  
+  .link-text {
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+  
+  .sidebar .nav-link:hover {
+    color: var(--main-color) !important;
+  }
+  
+  .sidebar .nav-link.active {
+    background-color: var(--sidebar-active-bg) !important;
+    color: var(--main-color) !important;
+  }
+
+  body.drawer-open .sidebar .nav-link.active {
+    pointer-events: none;
+  }

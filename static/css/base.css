@@ -1,0 +1,245 @@
+/* ============================================================================
+   base.css — Fundament stylów, zmienne i globalne reguły
+   ============================================================================ */
+
+/* 1) Custom Properties (zmienne) */
+:root {
+  /* ■ Kolory główne */
+  --main-color:          #e20074;
+  --main-color-hover:    #c30068;
+  --active-bg:           #f9e0ef;
+  --drawer-bg:           #f8f9fa;
+
+  /* ■ Light mode */
+  --bg-color:            #ffffff;
+  --text-color:          #212529;
+
+  /* ■ Dark mode base */
+  --dark-bg-color:       #212529;
+  --dark-text-color:     #f8f9fa;
+
+  /* ■ Sidebar colors */
+  --sidebar-bg:          #f8f9fa;
+  --sidebar-text:        #495057;
+  --sidebar-hover-bg:    #f1f1f1;
+  --sidebar-active-bg:   var(--active-bg);
+
+  /* ■ Drawer colors */
+  --drawer-text:         #495057;
+  --drawer-hover-text:   var(--main-color);
+
+  /* ■ Alert/palette */
+  --success-color:       #28a745;
+  --warning-color:       #ffc107;
+  --error-color:         #dc3545;
+
+  /* ■ Navbar & Footer light */
+  --navbar-bg:   #343a40;
+  --navbar-text: #ffffff;
+  --footer-bg:   #343a40;
+  --footer-text: #ffffff;
+
+  /* ■ Navbar & Footer dark */
+  --navbar-bg-dark:      #2c2c2c;
+  --navbar-text-dark:    #f8f9fa;
+  --footer-bg-dark:      #1a1a1a;
+  --footer-text-dark:    #f8f9fa;
+
+  /* ■ Dimensions */
+  --navbar-height:       60px;
+  --footer-height:       40px;
+  --sidebar-width:       70px;
+  --drawer-width:        200px;
+
+  /* ■ Spacing */
+  --spacing-unit:        8px;
+
+  /* ■ Typography */
+  --font-primary:        'Roboto', sans-serif;
+  --font-heading:        'Montserrat', sans-serif;
+
+  --font-xs:             0.75rem;
+  --font-sm:             0.875rem;
+  --font-base:           1rem;
+  --font-lg:             1.125rem;
+  --font-xl:             1.25rem;
+  --font-xxl:            1.5rem;
+
+  --fw-light:            300;
+  --fw-normal:           400;
+  --fw-medium:           500;
+  --fw-bold:             700;
+}
+
+/* Dark mode overrides */
+[data-theme="dark"] {
+  --bg-color:            var(--dark-bg-color);
+  --text-color:          var(--dark-text-color);
+
+  --sidebar-bg:          #2c2c2c;
+  --sidebar-text:        #d1d1d1;
+  --sidebar-hover-bg:    #3a3a3a;
+  --sidebar-active-bg:   #5a1a46;
+
+  --drawer-bg:           #2a2a2a;
+  --drawer-text:         #cfcfcf;
+  --drawer-hover-text:   var(--main-color);
+
+  --navbar-bg:           var(--navbar-bg-dark);
+  --navbar-text:         var(--navbar-text-dark);
+  --footer-bg:           var(--footer-bg-dark);
+  --footer-text:         var(--footer-text-dark);
+}
+
+/* 2) Reset & box-sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 3) Body & layout foundation */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-primary);
+  font-size: var(--font-base);
+  font-weight: var(--fw-normal);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Scrollable wrapper (padding for navbar/footer) */
+.content-scroll {
+  padding-top:    var(--navbar-height);
+  padding-bottom: var(--footer-height);
+  display:        flex;
+  flex-direction: column;
+  flex:           1 1 auto;
+}
+
+/* 4) Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family:    var(--font-heading);
+  margin-bottom:  calc(var(--spacing-unit) * 2);
+  color:          var(--text-color);
+}
+h1 { font-size: var(--font-xxl); font-weight: var(--fw-bold); }
+h2 { font-size: var(--font-xl);  font-weight: var(--fw-bold); }
+h3 { font-size: var(--font-lg);  font-weight: var(--fw-medium); }
+h4 { font-size: var(--font-base);font-weight: var(--fw-medium); }
+
+/* 5) Page wrapper */
+.page-wrapper {
+  width:      100%;
+  box-sizing: border-box;
+  margin:     0 auto;
+  padding:    calc(var(--spacing-unit) * 2);
+}
+
+/* 6) Main-content offset & scroll */
+#main-content {
+  position:      relative;
+  display:       flex;
+  flex-direction: column;
+  flex:          1 1 auto;
+  justify-content: center;
+  margin-left:   var(--sidebar-width);
+
+  overflow-y:    auto;
+}
+
+/* 7) Navbar & Footer basics */
+.navbar-custom {
+  position:       fixed;
+  top:            0;
+  left:           0;
+  width:          100%;
+  height:         var(--navbar-height);
+  background-color: var(--navbar-bg);
+  color:          var(--navbar-text);
+  display:        flex;
+  align-items:    center;
+  padding-left:   calc(var(--spacing-unit) * 2);
+  z-index:        30;
+}
+.footer-custom {
+  position:       fixed;
+  bottom:         0;
+  left:           0;
+  width:          100%;
+  height:         var(--footer-height);
+  background-color: var(--footer-bg);
+  color:          var(--footer-text);
+  display:        flex;
+  align-items:    center;
+  justify-content: center;
+  font-size:      var(--font-sm);
+  z-index:        30;
+}
+
+/* 8) Focus & accessibility 
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline:         2px dashed var(--main-color);
+  outline-offset:  2px;
+} */
+
+/* 9) Form validation */
+input:invalid,
+select:invalid,
+textarea:invalid {
+  border-color: var(--error-color);
+}
+
+/* 10) Utility classes */
+.d-flex        { display: flex !important; }
+.mt-auto       { margin-top: auto !important; }
+.m-1           { margin: calc(var(--spacing-unit) * 1) !important; }
+.p-1           { padding: calc(var(--spacing-unit) * 1) !important; }
+.m-2           { margin: calc(var(--spacing-unit) * 2) !important; }
+.p-2           { padding: calc(var(--spacing-unit) * 2) !important; }
+.text-success  { color: var(--success-color) !important; }
+.bg-warning    { background-color: var(--warning-color) !important; }
+
+/* 11) Animations */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out both;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 12) Responsive breakpoints */
+@media (max-width: 768px) {
+  .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
+  .sidebar.open { transform: translateX(0); }
+
+  .settings-drawer {
+    position: fixed;
+    left: 0;
+    width: 100%;
+  }
+
+  .page-wrapper { padding: calc(var(--spacing-unit) * 1); }
+
+  /* Table as cards */
+  .table-minimal { display: block; }
+  .table-minimal thead { display: none; }
+  .table-minimal tr {
+    display: block;
+    margin-bottom: var(--spacing-unit);
+  }
+  .table-minimal td {
+    display: flex;
+    justify-content: space-between;
+  }
+}

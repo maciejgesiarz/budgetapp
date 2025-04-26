@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Ustawienia – Kategorie{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+    <h2>Kategorie</h2>
+
+    <!-- Formularz dodawania nowej kategorii -->
+    <form method="POST" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="new_category" class="form-control" placeholder="Nowa kategoria" required>
+            <button type="submit" class="btn btn-custom">
+                <span class="material-symbols-outlined">add</span>
+                Dodaj
+            </button>
+        </div>
+    </form>
+
+    <!-- Lista kategorii -->
+    <ul class="list-group">
+        {% for category in categories %}
+            <li class="list-group-item">
+                {{ category[1] }}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
