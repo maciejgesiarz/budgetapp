@@ -1,3 +1,4 @@
+import os                                # <-- dodaj ten import
 from flask import Flask
 from config import DevelopmentConfig, ProductionConfig
 from extensions import close_db
@@ -7,9 +8,10 @@ from features.settings.routes import settings_bp
 
 def create_app():
     app = Flask(__name__)
-    # wybierz konfigurację
+
+    # wybierz konfigurację na podstawie FLASK_ENV
     env = os.getenv('FLASK_ENV', 'development')
-    cfg = DevelopmentConfig if env=='development' else ProductionConfig
+    cfg = DevelopmentConfig if env == 'development' else ProductionConfig
     app.config.from_object(cfg)
 
     # teardown DB
@@ -23,4 +25,5 @@ def create_app():
     return app
 
 if __name__ == '__main__':
-    create_app().run()
+    app = create_app()
+    app.run(debug=True)
