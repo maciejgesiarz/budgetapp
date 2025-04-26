@@ -1,14 +1,14 @@
 <nav class="sidebar">
   <div class="sidebar-top">
-    <a href="{{ url_for('index') }}"
-       class="nav-link {% if request.endpoint=='index' %}active{% endif %}">
+    <a href="{{ url_for('transactions.index') }}"
+       class="nav-link {% if request.endpoint=='transactions.index' %}active{% endif %}">
       <span class="material-symbols-outlined sidebar-icon">list_alt</span>
       <div class="link-text">Transakcje</div>
     </a>
   </div>
   <div class="sidebar-bottom">
-    <a href="{{ url_for('settings_appearance') }}"
-       class="nav-link {% if request.endpoint.startswith('settings_') %}active{% endif %}">
+    <a href="{{ url_for('settings.appearance') }}"
+       class="nav-link {% if request.endpoint.startswith('settings.') %}active{% endif %}">
       <span class="material-symbols-outlined sidebar-icon">settings</span>
       <div class="link-text">Ustawienia</div>
     </a>

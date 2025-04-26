@@ -3,7 +3,6 @@ from flask import Flask
 from config import DevelopmentConfig, ProductionConfig
 from extensions import close_db
 from features.transactions.routes import transactions_bp
-from features.categories.routes import categories_bp
 from features.settings.routes import settings_bp
 
 def create_app():
@@ -19,7 +18,6 @@ def create_app():
 
     # rejestracja blueprintów
     app.register_blueprint(transactions_bp)
-    app.register_blueprint(categories_bp)
     app.register_blueprint(settings_bp)
 
     return app

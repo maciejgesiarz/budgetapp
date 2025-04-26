@@ -1,7 +1,12 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from extensions import get_db
 
-transactions_bp = Blueprint('transactions', __name__)
+transactions_bp = Blueprint(
+    'transactions',         # <--- to daje prefix "transactions"
+    __name__,
+    url_prefix='/'          # lub inny prefix, zależnie od Ciebie
+)
+
 
 @transactions_bp.route('/', methods=['GET', 'POST'])
 def index():

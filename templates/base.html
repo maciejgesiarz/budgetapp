@@ -41,7 +41,7 @@
   {% include 'partials/sidebar.html' %}
 
    <!-- ► TOGGLE BUTTON – zawsze widoczny, na zewnątrz drawera -->
-   {% if request.endpoint.startswith('settings_') %}
+   {% if request.endpoint.startswith('settings.') %}
    <button class="drawer-toggle-btn" aria-label="Toggle drawer">
      <span class="material-symbols-outlined show-icon">chevron_right</span>
      <span class="material-symbols-outlined hide-icon">chevron_left</span>
