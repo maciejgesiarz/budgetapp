@@ -1,42 +1,20 @@
-/* ============================================================================
-   drawer.css — panel wysuwany (settings i inne)
-   ============================================================================ */
-
-/* domyślnie ukryty */
-.drawer, .settings-drawer {
+.drawer {
   position: fixed;
   top: var(--navbar-height);
   bottom: var(--footer-height);
   left: var(--sidebar-width);
   width: var(--drawer-width);
-  background: var(--drawer-bg);
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
-  overflow-y: auto;
+  background-color: var(--drawer-bg);
+  display: none;
   z-index: 10;
 }
-
-/* po otwarciu */
-.drawer.open, .settings-drawer.open {
-  transform: translateX(0);
-  border-left: 1px solid #ccc;  /* cienka, szara linia */
+.drawer.open {
+  display: block;
+  border-left: 1px solid #ccc; 
 }
 
-/* lista elementów */
-.settings-drawer ul {
+.settings-list {
   list-style: none;
   margin: 0;
   padding: 0;
-}
-.settings-item {
-  display: block;
-  padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 2);
-  color: var(--text-color);
-  text-decoration: none;
-  font-size: var(--font-sm);
-  transition: color 0.2s;
-}
-.settings-item:hover,
-.settings-item.active {
-  color: var(--main-color);
 }

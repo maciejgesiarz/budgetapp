@@ -1,45 +1,97 @@
 /* ============================================================================
-   base.css — fundament: zmienne, reset, layout, typografia, navbar/footer,
-               przyciski, focus, responsywność
+   base.css — Fundament stylów, zmienne i globalne reguły
    ============================================================================ */
 
-/* 1) Zmienne globalne */
+/* 1) Custom Properties (zmienne) */
 :root {
   /* ■ Kolory główne */
-  --main-color:        #e20074;   /* magenta */
-  --main-hover:        #c30068;   /* magenta ciemniejsza */
-  --active-bg:         #f9e0ef;   /* jasny róż */
+  --main-color:          #e20074;
+  --main-color-hover:    #c30068;
+  --active-bg:           #f9e0ef;
+  --drawer-bg:           #f8f9fa;
 
-  /* ■ Tło i tekst */
-  --bg-color:          #ffffff;
-  --text-color:        #212529;
+  /* ■ Light mode */
+  --bg-color:            #ffffff;
+  --text-color:          #212529;
 
-  /* ■ Dark mode (nadpisania) */
-  --dark-bg-color:     #212529;
-  --dark-text-color:   #f8f9fa;
+  /* ■ Dark mode base */
+  --dark-bg-color:       #212529;
+  --dark-text-color:     #f8f9fa;
 
-  /* ■ Wymiary */
-  --navbar-height:     60px;
-  --footer-height:     40px;
-  --sidebar-width:     70px;
-  --drawer-width:      200px;
+  /* ■ Sidebar colors */
+  --sidebar-bg:          #f8f9fa;
+  --sidebar-text:        #495057;
+  --sidebar-hover-bg:    #f1f1f1;
+  --sidebar-active-bg:   var(--active-bg);
 
-  /* ■ Spacing i typografia */
-  --spacing-unit:      8px;
-  --font-base:         1rem;
-  --font-sm:           0.875rem;
-  --font-lg:           1.125rem;
-  --font-primary:      'Roboto', sans-serif;
-  --font-heading:      'Montserrat', sans-serif;
+  /* ■ Drawer colors */
+  --drawer-text:         #495057;
+  --drawer-hover-text:   var(--main-color);
+
+  /* ■ Alert/palette */
+  --success-color:       #28a745;
+  --warning-color:       #ffc107;
+  --error-color:         #dc3545;
+
+  /* ■ Navbar & Footer light */
+  --navbar-bg:   #343a40;
+  --navbar-text: #ffffff;
+  --footer-bg:   #343a40;
+  --footer-text: #ffffff;
+
+  /* ■ Navbar & Footer dark */
+  --navbar-bg-dark:      #2c2c2c;
+  --navbar-text-dark:    #f8f9fa;
+  --footer-bg-dark:      #1a1a1a;
+  --footer-text-dark:    #f8f9fa;
+
+  /* ■ Dimensions */
+  --navbar-height:       60px;
+  --footer-height:       40px;
+  --sidebar-width:       70px;
+  --drawer-width:        200px;
+
+  /* ■ Spacing */
+  --spacing-unit:        8px;
+
+  /* ■ Typography */
+  --font-primary:        'Roboto', sans-serif;
+  --font-heading:        'Montserrat', sans-serif;
+
+  --font-xs:             0.75rem;
+  --font-sm:             0.875rem;
+  --font-base:           1rem;
+  --font-lg:             1.125rem;
+  --font-xl:             1.25rem;
+  --font-xxl:            1.5rem;
+
+  --fw-light:            300;
+  --fw-normal:           400;
+  --fw-medium:           500;
+  --fw-bold:             700;
 }
 
-/* 2) Dark mode override */
+/* Dark mode overrides */
 [data-theme="dark"] {
-  --bg-color:          var(--dark-bg-color);
-  --text-color:        var(--dark-text-color);
+  --bg-color:            var(--dark-bg-color);
+  --text-color:          var(--dark-text-color);
+
+  --sidebar-bg:          #2c2c2c;
+  --sidebar-text:        #d1d1d1;
+  --sidebar-hover-bg:    #3a3a3a;
+  --sidebar-active-bg:   #5a1a46;
+
+  --drawer-bg:           #2a2a2a;
+  --drawer-text:         #cfcfcf;
+  --drawer-hover-text:   var(--main-color);
+
+  --navbar-bg:           var(--navbar-bg-dark);
+  --navbar-text:         var(--navbar-text-dark);
+  --footer-bg:           var(--footer-bg-dark);
+  --footer-text:         var(--footer-text-dark);
 }
 
-/* 3) Reset & box-sizing */
+/* 2) Reset & box-sizing */
 *,
 *::before,
 *::after {
@@ -48,114 +100,146 @@
   padding: 0;
 }
 
-/* 4) Body & layout foundation */
+/* 3) Body & layout foundation */
 body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: var(--bg-color);
+  background-color: var(--bg-color);
   color: var(--text-color);
   font-family: var(--font-primary);
   font-size: var(--font-base);
-  transition: background 0.3s, color 0.3s;
+  font-weight: var(--fw-normal);
+  transition: background-color 0.3s, color 0.3s;
 }
 
-/* 5) Scrollable wrapper (bez nav i footer) */
+/* Scrollable wrapper (padding for navbar/footer) */
 .content-scroll {
   padding-top:    var(--navbar-height);
   padding-bottom: var(--footer-height);
-  flex:           1 1 auto;
   display:        flex;
-  overflow:       hidden;
+  flex-direction: column;
+  flex:           1 1 auto;
+}
+
+/* 4) Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family:    var(--font-heading);
+  margin-bottom:  calc(var(--spacing-unit) * 2);
+  color:          var(--text-color);
+}
+h1 { font-size: var(--font-xxl); font-weight: var(--fw-bold); }
+h2 { font-size: var(--font-xl);  font-weight: var(--fw-bold); }
+h3 { font-size: var(--font-lg);  font-weight: var(--fw-medium); }
+h4 { font-size: var(--font-base);font-weight: var(--fw-medium); }
+
+/* 5) Page wrapper */
+.page-wrapper {
+  width:      100%;
+  box-sizing: border-box;
+  margin:     0 auto;
+  padding:    calc(var(--spacing-unit) * 2);
 }
 
 /* 6) Main-content offset & scroll */
 #main-content {
-  margin-left: var(--sidebar-width);
-  transition: margin-left 0.3s ease;
-  display: flex;
+  position:      relative;
+  display:       flex;
   flex-direction: column;
-  flex: 1 1 auto;
-}
-body.drawer-open #main-content {
-  margin-left: calc(var(--sidebar-width) + var(--drawer-width));
+  flex:          1 1 auto;
+  justify-content: center;
+  margin-left:   var(--sidebar-width);
+
+  overflow-y:    auto;
 }
 
-/* 7) Page wrapper */
-.page-wrapper {
-  width: 100%;
-  padding: calc(var(--spacing-unit) * 2);
-  box-sizing: border-box;
-}
-
-/* 8) Typography */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  margin-bottom: calc(var(--spacing-unit) * 2);
-}
-h1 { font-size: var(--font-lg);    }
-h2 { font-size: var(--font-base);  }
-
-/* 9) Navbar & Footer */
+/* 7) Navbar & Footer basics */
 .navbar-custom {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: var(--navbar-height);
-  background: var(--bg-color);
-  display: flex; align-items: center;
-  padding: 0 calc(var(--spacing-unit) * 2);
-  z-index: 30;
+  position:       fixed;
+  top:            0;
+  left:           0;
+  width:          100%;
+  height:         var(--navbar-height);
+  background-color: var(--navbar-bg);
+  color:          var(--navbar-text);
+  display:        flex;
+  align-items:    center;
+  padding-left:   calc(var(--spacing-unit) * 2);
+  z-index:        30;
 }
 .footer-custom {
-  position: fixed;
-  bottom: 0; left: 0;
-  width: 100%; height: var(--footer-height);
-  background: var(--bg-color);
-  display: flex; align-items: center; justify-content: center;
-  font-size: var(--font-sm);
-  z-index: 30;
+  position:       fixed;
+  bottom:         0;
+  left:           0;
+  width:          100%;
+  height:         var(--footer-height);
+  background-color: var(--footer-bg);
+  color:          var(--footer-text);
+  display:        flex;
+  align-items:    center;
+  justify-content: center;
+  font-size:      var(--font-sm);
+  z-index:        30;
 }
 
-/* 10) Buttons (z dawnego buttons.css) */
-.btn-custom {
-  color: var(--main-color);
-  border: 2px solid var(--main-color);
-  background: transparent;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  transition: background 0.3s, color 0.3s;
-  font-size: var(--font-sm);
-}
-.btn-custom:hover {
-  background-color: var(--main-color);
-  color: #fff;
-}
-.btn-important {
-  background-color: var(--main-color);
-  border: 2px solid var(--main-color);
-  color: #fff;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  transition: background 0.3s, border-color 0.3s;
-  font-size: var(--font-sm);
-}
-.btn-important:hover {
-  background-color: var(--main-hover);
-  border-color: var(--main-hover);
+/* 8) Focus & accessibility 
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline:         2px dashed var(--main-color);
+  outline-offset:  2px;
+} */
+
+/* 9) Form validation */
+input:invalid,
+select:invalid,
+textarea:invalid {
+  border-color: var(--error-color);
 }
 
-/* 11) Focus outline */
-:focus {
-  outline: 2px dashed var(--main-color);
-  outline-offset: 2px;
+/* 10) Utility classes */
+.d-flex        { display: flex !important; }
+.mt-auto       { margin-top: auto !important; }
+.m-1           { margin: calc(var(--spacing-unit) * 1) !important; }
+.p-1           { padding: calc(var(--spacing-unit) * 1) !important; }
+.m-2           { margin: calc(var(--spacing-unit) * 2) !important; }
+.p-2           { padding: calc(var(--spacing-unit) * 2) !important; }
+.text-success  { color: var(--success-color) !important; }
+.bg-warning    { background-color: var(--warning-color) !important; }
+
+/* 11) Animations */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out both;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* 12) Responsive tweaks */
+/* 12) Responsive breakpoints */
 @media (max-width: 768px) {
   .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
   .sidebar.open { transform: translateX(0); }
-  .settings-drawer, .drawer { left: 0; width: 100%; }
+
+  .settings-drawer {
+    position: fixed;
+    left: 0;
+    width: 100%;
+  }
+
   .page-wrapper { padding: calc(var(--spacing-unit) * 1); }
+
+  /* Table as cards */
+  .table-minimal { display: block; }
+  .table-minimal thead { display: none; }
+  .table-minimal tr {
+    display: block;
+    margin-bottom: var(--spacing-unit);
+  }
+  .table-minimal td {
+    display: flex;
+    justify-content: space-between;
+  }
 }
