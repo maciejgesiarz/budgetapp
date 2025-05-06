@@ -1,12 +1,11 @@
-import sqlite3
-from flask import current_app, g
+# extensions.py
 
-def get_db():
-    if 'db' not in g:
-        g.db = sqlite3.connect(current_app.config['DATABASE'])
-    return g.db
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate    import Migrate
+from flask_login      import LoginManager
+from authlib.integrations.flask_client import OAuth
 
-def close_db(e=None):
-    db = g.pop('db', None)
-    if db:
-        db.close()
+db            = SQLAlchemy()
+migrate       = Migrate()
+login_manager = LoginManager()
+oauth         = OAuth()

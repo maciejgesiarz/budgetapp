@@ -2,6 +2,7 @@ import os
 from flask import Flask
 from config import DevelopmentConfig, ProductionConfig
 from extensions import db, migrate, login_manager, oauth
+from import transactions_bp
 from core import models 
 
 # ... import blueprintów ...
