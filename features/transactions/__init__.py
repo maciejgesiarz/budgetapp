@@ -1,4 +1,3 @@
-# features/categories/__init__.py
-from .routes import categories_bp
+from .routes import transactions_bp
 
-__all__ = ['categories_bp']
+__all__ = ['transactions_bp']

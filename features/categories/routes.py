@@ -1,42 +1,42 @@
-import sqlite3
-from flask import Blueprint, render_template, request, redirect, url_for
+# features/categories/routes.py
 
-settings_bp = Blueprint('settings', __name__, url_prefix='/settings')
+from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_login import login_required
+from extensions import db
+from core.models import Category
 
-@settings_bp.route('/appearance')
-def appearance():
-    return render_template('settings/appearance.html')
+categories_bp = Blueprint(
+    'categories',
+    __name__,
+    url_prefix='/categories',
+    template_folder='templates/categories'
+)
 
-@settings_bp.route('/categories', methods=['GET', 'POST'])
-def categories():
-    # 1) Otwórz połączenie i utwórz kursor
-    conn = sqlite3.connect('transactions.db')
-    cursor = conn.cursor()
+@categories_bp.route('/')
+@login_required
+def index():
+    categories = Category.query.order_by(Category.name).all()
+    return render_template('categories/index.html', categories=categories)
 
-    # 2) Obsługa POST — dodanie nowej kategorii
-    if request.method == 'POST':
-        new_cat = request.form.get('new_category')
-        if new_cat:
-            try:
-                cursor.execute(
-                    'INSERT INTO categories (name) VALUES (?)',
-                    (new_cat,)
-                )
-                conn.commit()
-            except sqlite3.IntegrityError:
-                # ignoruj duplikaty
-                pass
-        # zamknij połączenie przed redirectem
-        conn.close()
-        return redirect(url_for('settings.categories'))
+@categories_bp.route('/add', methods=['POST'])
+@login_required
+def add():
+    name = request.form.get('name', '').strip()
+    if not name:
+        flash('Podaj nazwę kategorii.', 'warning')
+    elif Category.query.filter_by(name=name).first():
+        flash('Taka kategoria już istnieje.', 'info')
+    else:
+        db.session.add(Category(name=name))
+        db.session.commit()
+        flash('Dodano kategorię.', 'success')
+    return redirect(url_for('categories.index'))
 
-    # 3) SELECT wszystkich kategorii
-    cursor.execute('SELECT * FROM categories')
-    categories = cursor.fetchall()
-
-    # 4) Zamknij połączenie i renderuj szablon
-    conn.close()
-    return render_template(
-        'settings/categories.html',
-        categories=categories
-    )
+@categories_bp.route('/delete/<int:id>', methods=['POST'])
+@login_required
+def delete(id):
+    cat = Category.query.get_or_404(id)
+    db.session.delete(cat)
+    db.session.commit()
+    flash('Usunięto kategorię.', 'success')
+    return redirect(url_for('categories.index'))

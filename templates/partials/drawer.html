@@ -1,14 +1,26 @@
 <aside id="drawer-settings" class="drawer">
   <ul class="settings-list">
     <li>
-      <a href="{{ url_for('settings.appearance') }}"
-         class="settings-item {% if request.endpoint=='settings.appearance' %}active{% endif %}">
-        Główne
+      <a href="{{ url_for('auth.list_users') }}"
+         class="settings-item {% if request.endpoint=='auth.list_users' %}active{% endif %}">
+        Użytkownicy
       </a>
     </li>
     <li>
-      <a href="{{ url_for('settings.categories') }}"
-         class="settings-item {% if request.endpoint=='settings.categories' %}active{% endif %}">
+      <a href="{{ url_for('auth.list_roles') }}"
+         class="settings-item {% if request.endpoint=='auth.list_roles' %}active{% endif %}">
+        Role
+      </a>
+    </li>
+    <li>
+      <a href="{{ url_for('auth.list_perms') }}"
+         class="settings-item {% if request.endpoint=='auth.list_perms' %}active{% endif %}">
+        Funkcjonalności
+      </a>
+    </li>
+    <li>
+      <a href="{{ url_for('categories.index') }}"
+         class="settings-item {% if request.endpoint=='categories.index' %}active{% endif %}">
         Kategorie
       </a>
     </li>

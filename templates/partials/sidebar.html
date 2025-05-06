@@ -7,7 +7,7 @@
     </a>
   </div>
   <div class="sidebar-bottom">
-    <a href="{{ url_for('settings.appearance') }}"
+    <a href="{{ url_for('auth.login') }}"
        class="nav-link {% if request.endpoint.startswith('settings.') %}active{% endif %}">
       <span class="material-symbols-outlined sidebar-icon">settings</span>
       <div class="link-text">Ustawienia</div>
