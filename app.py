@@ -1,20 +1,25 @@
-import os                                # <-- dodaj ten import
+import os
 from flask import Flask
 from config import DevelopmentConfig, ProductionConfig
-from extensions import close_db
-from features.transactions.routes import transactions_bp
-from features.settings.routes import settings_bp
+from extensions import db, migrate, login_manager, oauth
+from core import models 
+
+# ... import blueprintów ...
 
 def create_app():
     app = Flask(__name__)
 
-    # wybierz konfigurację na podstawie FLASK_ENV
+    # wybór configu
     env = os.getenv('FLASK_ENV', 'development')
     cfg = DevelopmentConfig if env == 'development' else ProductionConfig
     app.config.from_object(cfg)
 
-    # teardown DB
-    app.teardown_appcontext(close_db)
+    # inicjalizacja rozszerzeń
+    db.init_app(app)
+    migrate.init_app(app, db)
+    login_manager.init_app(app)
+    oauth.init_app(app)
+
 
     # rejestracja blueprintów
     app.register_blueprint(transactions_bp)
