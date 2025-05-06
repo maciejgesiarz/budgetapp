@@ -48,3 +48,9 @@ class Permission(db.Model):
     id          = db.Column(db.Integer, primary_key=True)
     name        = db.Column(db.String(100), unique=True, nullable=False)
     description = db.Column(db.String(200))
+
+class AllowedEmail(db.Model):
+    __tablename__ = 'allowed_email'
+    id    = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
