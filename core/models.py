@@ -54,3 +54,23 @@ class AllowedEmail(db.Model):
     id    = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+class Category(db.Model):
+    __tablename__ = 'category'
+    id   = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=True, nullable=False)
+    # (opcjonalnie) relacje do transakcji, np. backref='category'
+
+class Transaction(db.Model):
+    __tablename__ = 'transaction'
+    id           = db.Column(db.Integer, primary_key=True)
+    user_id      = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    category_id  = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
+    amount       = db.Column(db.Numeric(12, 2), nullable=False)
+    description  = db.Column(db.String(255))
+    date         = db.Column(db.Date, nullable=False, default=datetime.utcnow)
+    created_at   = db.Column(db.DateTime, default=datetime.utcnow)
+
+    # relacje (opcjonalne):
+    user         = db.relationship('User', backref='transactions')
+    category     = db.relationship('Category', backref='transactions')

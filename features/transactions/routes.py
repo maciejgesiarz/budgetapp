@@ -1,40 +1,42 @@
-from flask import Blueprint, render_template, request, redirect, url_for
-from extensions import get_db
+# features/categories/routes.py
 
-transactions_bp = Blueprint(
-    'transactions',         # <--- to daje prefix "transactions"
+from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_login import login_required
+from extensions import db
+from core.models import Category
+
+categories_bp = Blueprint(
+    'categories',
     __name__,
-    url_prefix='/'          # lub inny prefix, zależnie od Ciebie
+    url_prefix='/categories',
+    template_folder='templates/categories'
 )
 
-
-@transactions_bp.route('/', methods=['GET', 'POST'])
+@categories_bp.route('/')
+@login_required
 def index():
-    db = get_db()
-    cursor = db.cursor()
+    categories = Category.query.order_by(Category.name).all()
+    return render_template('categories/index.html', categories=categories)
 
-    if request.method == 'POST':
-        name     = request.form['name']
-        amount   = float(request.form['amount'])
-        date     = request.form['date']
-        category = request.form['category']
-        cursor.execute(
-            'INSERT INTO transactions (name, amount, date, category) VALUES (?, ?, ?, ?)',
-            (name, amount, date, category)
-        )
-        db.commit()
-        return redirect(url_for('transactions.index'))
+@categories_bp.route('/add', methods=['POST'])
+@login_required
+def add():
+    name = request.form.get('name', '').strip()
+    if not name:
+        flash('Podaj nazwę kategorii.', 'warning')
+    elif Category.query.filter_by(name=name).first():
+        flash('Taka kategoria już istnieje.', 'info')
+    else:
+        db.session.add(Category(name=name))
+        db.session.commit()
+        flash('Dodano kategorię.', 'success')
+    return redirect(url_for('categories.index'))
 
-    # pobierz dane
-    cursor.execute('SELECT * FROM transactions')
-    transactions = cursor.fetchall()
-
-    cursor.execute('SELECT name FROM categories')
-    categories = [row[0] for row in cursor.fetchall()]
-
-    # render: nazwa szablonu + named args
-    return render_template(
-        'transactions/index.html',
-        transactions=transactions,
-        categories=categories
-    )
+@categories_bp.route('/delete/<int:id>', methods=['POST'])
+@login_required
+def delete(id):
+    cat = Category.query.get_or_404(id)
+    db.session.delete(cat)
+    db.session.commit()
+    flash('Usunięto kategorię.', 'success')
+    return redirect(url_for('categories.index'))

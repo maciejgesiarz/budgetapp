@@ -1,19 +1,16 @@
-import os
-from flask import url_for, redirect, flash
+# features/auth/routes.py
+
+from flask     import Blueprint, url_for, redirect, flash
 from flask_login import login_user, logout_user, login_required
 from extensions import oauth, db
 from core.models import User, AllowedEmail
-from . import auth_bp
 
-@auth_bp.before_app_first_request
-def configure_oauth():
-    oauth.register(
-        name='google',
-        client_id=os.getenv('GOOGLE_CLIENT_ID'),
-        client_secret=os.getenv('GOOGLE_CLIENT_SECRET'),
-        server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
-        client_kwargs={'scope': 'openid email profile'}
-    )
+auth_bp = Blueprint(
+    'auth',
+    __name__,
+    url_prefix='/settings/auth',
+    template_folder='templates/auth'
+)
 
 @auth_bp.route('/login')
 def login():
